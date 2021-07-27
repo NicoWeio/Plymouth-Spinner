@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=Triple spinner
+Description=Shows three colored spinners that fade in depending on loading progress
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/spinner-triple
+ScriptFile=/usr/share/plymouth/themes/spinner-triple/spinner-triple.script

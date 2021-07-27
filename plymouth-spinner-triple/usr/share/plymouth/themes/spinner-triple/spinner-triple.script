@@ -1,0 +1,70 @@
+//so that the point where all spinners meet is not always the same:
+common_rotation = 0.005;
+//so that the speed can be changed by one variable:
+base_rotation = 1 / 120;
+//multiply displayed progress by that factor:
+//useful for debugging
+speedup_factor = 1;
+
+spinner_img = Image("spinner.png");
+//spinner1_img = spinner_img.Scale(500 * 0.5, 500 * 0.5);
+spinner1_img = Image("spinner-green.png").Scale(500 * 0.5, 500 * 0.5);
+//spinner2_img = spinner_img.Scale(500 * 0.25, 500 * 0.25);
+spinner2_img = Image("spinner-red.png").Scale(500 * 0.25, 500 * 0.25);
+
+spinner_sprite = Sprite(spinner_img);
+spinner1_sprite = Sprite(spinner1_img);
+spinner2_sprite = Sprite(spinner2_img);
+
+spinner_sprite.SetX (Window.GetWidth ()  / 2 - spinner_sprite.GetImage().GetWidth()  / 2);
+spinner_sprite.SetY (Window.GetHeight () / 2 - spinner_sprite.GetImage().GetHeight() / 2);
+spinner1_sprite.SetX (Window.GetWidth ()  / 2 - spinner1_sprite.GetImage().GetWidth()  / 2);
+spinner1_sprite.SetY (Window.GetHeight () / 2 - spinner1_sprite.GetImage().GetHeight() / 2);
+spinner2_sprite.SetX (Window.GetWidth ()  / 2 - spinner2_sprite.GetImage().GetWidth()  / 2);
+spinner2_sprite.SetY (Window.GetHeight () / 2 - spinner2_sprite.GetImage().GetHeight() / 2);
+
+spinner_sprite.SetOpacity(0);
+spinner1_sprite.SetOpacity(0);
+spinner2_sprite.SetOpacity(0);
+
+progress_img = Image.Text("0%", 1, 1, 1);
+progress_sprite = Sprite(progress_img);
+
+
+counter = 0;
+
+fun refresh_callback ()
+{
+ counter++;
+ spinner_sprite.SetImage  (spinner_img.Rotate   (Math.Pi * counter * ( common_rotation + base_rotation * 1 )));
+ spinner1_sprite.SetImage (spinner1_img.Rotate  (Math.Pi * counter * ( common_rotation + base_rotation * 2 )));
+ spinner2_sprite.SetImage (spinner2_img.Rotate  (Math.Pi * counter * ( common_rotation + base_rotation * 4 )));
+}
+Plymouth.SetRefreshFunction (refresh_callback);
+
+fun progress_callback (time, progress)
+{
+  progress_sprite.SetImage(Image.Text(progress*100 + "%", 1, 1, 1));
+
+  displayProgress = progress * speedup_factor;
+
+  spinner_sprite.SetOpacity( Math.Clamp( (displayProgress) * 1, 0, 1) );
+  spinner1_sprite.SetOpacity( Math.Clamp( (displayProgress - 0.5) * 2, 0, 1) );
+  spinner2_sprite.SetOpacity( Math.Clamp( (displayProgress - 0.75) * 4, 0, 1) );
+}
+Plymouth.SetBootProgressFunction (progress_callback);
+
+
+message_img = Image.Text("");
+message_sprite = Sprite(message_img);
+
+fun message_callback (msg) {
+  message_sprite.SetImage(Image.Text(msg, 1, 1, 1));
+  message_sprite.SetX (Window.GetWidth()  / 2 - message_sprite.GetImage().GetWidth()  / 2);
+  message_sprite.SetY (Window.GetHeight() - message_sprite.GetImage().GetHeight());
+
+  //Window.SetBackgroundTopColor (0, 0, 1);           # Nice blue on top of the screen fading to
+  //Window.SetBackgroundBottomColor (0.8, 0.2, 0.1);  # an equally nice brown on the bottom
+}
+//Plymouth.SetMessageFunction(message_callback);
+Plymouth.SetUpdateStatusFunction(message_callback);

@@ -1,0 +1,9 @@
+Package: plymouth-spinner-triple
+Version: 1.0-1
+Section: misc
+Priority: optional
+Architecture: all
+Depends: plymouth
+Maintainer: Nicolai Weitkemper <kontakt@nicolaiweitkemper.de>
+Description: A plymouth loading screen theme
+ Shows three colored spinners that fade in depending on loading progress.

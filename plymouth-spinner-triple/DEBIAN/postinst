@@ -1,0 +1,5 @@
+# echo "Installing default.plymouth alternative"
+# update-alternatives --install /usr/share/plymouth/themes/default.plymouth default.plymouth /usr/share/plymouth/themes/spinner-triple/spinner-triple.plymouth 100
+# echo "Selecting the new default.plymouth alternative"
+update-alternatives --set default.plymouth /usr/share/plymouth/themes/spinner-triple/spinner-triple.plymouth
+update-initramfs -u
