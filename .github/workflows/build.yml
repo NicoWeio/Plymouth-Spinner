@@ -1,0 +1,15 @@
+name: Build packages
+on: [push]
+jobs:
+  build-deb:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Build .deb package
+        run: dpkg-deb --build plymouth-spinner-triple
+        # TODO: include version in filename
+      - uses: actions/upload-artifact@v2
+        with:
+          name: plymouth-spinner-triple.deb
+          path: plymouth-spinner-triple.deb
