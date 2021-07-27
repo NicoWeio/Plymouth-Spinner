@@ -6,7 +6,7 @@ base_rotation = 1 / 120;
 //useful for debugging
 speedup_factor = 1;
 
-spinner_img = Image("spinner.png");
+spinner_img = Image("spinner-blue.png");
 //spinner1_img = spinner_img.Scale(500 * 0.5, 500 * 0.5);
 spinner1_img = Image("spinner-green.png").Scale(500 * 0.5, 500 * 0.5);
 //spinner2_img = spinner_img.Scale(500 * 0.25, 500 * 0.25);
